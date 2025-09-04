@@ -30,6 +30,11 @@ resource "aws_s3_bucket_public_access_block" "public_access_block" {
   restrict_public_buckets = false
 }
 
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "my-public-bucket-that-will-fail-the-pre-plan"
+  acl    = "public-read" # This is the policy violation
+}
+
 # THIS POLICY GRANTS PUBLIC READ-ONLY ACCESS TO ALL OBJECTS
 # It allows anyone on the internet to view the objects in the bucket.
 resource "aws_s3_bucket_policy" "public_read_policy" {
